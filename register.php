@@ -1,3 +1,21 @@
+<?php
+//include database
+include_once "config/database.php";
+//Registration system
+if (isset($_POST['registration_btn'])) {
+    $userName = $_POST['user_name'];
+    $userEmail = $_POST['user_email'];
+    $userPassword = $_POST['user_password'];
+    $userConfirmPassword = $_POST['user_confirm_password'];
+
+    //registration sql operation
+    $registerSql = "INSERT INTO registration( user_name, user_email, user_password, user_confirm_password) VALUES('$userName', '$userEmail', '$userPassword', '$userConfirmPassword')";
+    $statement = $pdo->prepare($registerSql);
+    $statement->execute();
+    header('location: login.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,9 +31,7 @@
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -36,42 +52,34 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user">
+                            <form class="user" action="" method="post" enctype="multipart/form-data">
                                 <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                            placeholder="First Name">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
-                                            placeholder="Last Name">
+                                    <div class="col-sm-12 mb-12 mb-sm-0">
+                                        <input type="text" name="user_name" class="form-control form-control-user" id="exampleFirstName" placeholder="User Name">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                        placeholder="Email Address">
+                                    <input type="email" name="user_email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
+                                        <input type="password" name="user_password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
+                                        <input type="password" name="user_confirm_password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
                                     </div>
                                 </div>
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                                <button type="submit" class="btn btn-primary btn-user btn-block mt-3" name="registration_btn">
                                     Register Account
-                                </a>
-                                <hr>
-                                <a href="index.html" class="btn btn-google btn-user btn-block">
-                                    <i class="fab fa-google fa-fw"></i> Register with Google
-                                </a>
-                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                </a>
+                                </button>
                             </form>
+                            <hr>
+                            <a href="index.html" class="btn btn-google btn-user btn-block">
+                                <i class="fab fa-google fa-fw"></i> Register with Google
+                            </a>
+                            <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+                            </a>
                             <hr>
                             <div class="text-center">
                                 <a class="small" href="forgot-password.html">Forgot Password?</a>
