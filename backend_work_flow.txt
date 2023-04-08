@@ -1,0 +1,2 @@
+1. database connection
+    we connect database in topbar.php file
